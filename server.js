@@ -7,6 +7,15 @@ const { users } = require('./data/users');
 
 let currentUser = {};
 
+//Little function to find the user based on the user id
+function findUser(id){
+  return users.find(user => id === user._id);
+}
+
+function findFriends(user){
+  return user.friends.map( friendId => findUser(friendId));
+  }
+
 // declare the 404 function
 const handleFourOhFour = (req, res) => {
   res.status(404).send("I couldn't find what you're looking for.");
@@ -17,10 +26,15 @@ const handleHomePage = (req, res) => {
   res.status(200).render('./pages/homepage', {users: users});
 }
 
-//User page handler
+//User profilepage handler
 const handleProfilePage = (req, res) => {
   const _id = req.params._id;
-  res.send(_id);
+  const user = findUser(_id);
+  const friends = findFriends(user);
+  res.render('./pages/profile', {
+    user: user,
+    friends: friends
+  });
 }
 
 // -----------------------------------------------------
