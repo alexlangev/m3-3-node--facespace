@@ -21,21 +21,34 @@ const handleFourOhFour = (req, res) => {
   res.status(404).send("I couldn't find what you're looking for.");
 };
 
-// Homepage handler
+// Handlers
 const handleHomePage = (req, res) => {
   res.status(200).render('./pages/homepage', {users: users});
 }
 
-//User profilepage handler
 const handleProfilePage = (req, res) => {
   const _id = req.params._id;
   const user = findUser(_id);
   const friends = findFriends(user);
-  res.render('./pages/profile', {
+  res.status(200).render('./pages/profile', {
     user: user,
     friends: friends
   });
 }
+
+const handleSignIn = (req, res) => {
+  res.status(200).render('./pages/signin');
+}
+
+const handleName = (req, res) => {
+  const firstName = req.query.firstName;
+  const currentUser = users.find((user) => Object.values(user).includes(firstName));
+  if(currentUser === undefined) {
+    res.status(404).redirect('/signin');
+  } else {
+    res.status(200).redirect(`users/${currentUser._id}`);
+  }
+  };
 
 // -----------------------------------------------------
 // server endpoints
@@ -47,9 +60,9 @@ express()
 
   // endpoints
   .get('/', handleHomePage)
-
   .get('/users/:_id', handleProfilePage)
-
+  .get('/signin', handleSignIn)
+  .get('/getname', handleName)
   // a catchall endpoint that will send the 404 message.
   .get('*', handleFourOhFour)
 
