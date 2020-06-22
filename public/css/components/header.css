@@ -3,8 +3,48 @@
   background: var(--primary-color);
   padding: 0 var(--page-horizontal-padding);
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
-.header h1 {
+.header .site-title {
+  font-family: Teko;
+  font-size: 20px;
   color: #fff;
+  margin-top: 4px;
+  font-size: 30px;
+}
+
+.header .sign-in-link {
+  background: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #fff;
+  height: 36px;
+  padding: 4px 12px;
+  font-size: 18px;
+  font-family: Teko;
+  margin-top: 4px;
+  text-decoration: none;
+  transition: all ease 400ms;
+}
+
+.header .greeting {
+  background: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #fff;
+  height: 36px;
+  padding: 4px 12px;
+  font-size: 18px;
+  font-family: Teko;
+  margin-top: 25px;
+  text-decoration: none;
+}
+  
+.sign-in-link:hover {
+  background: #fff;
+  color: var(--primary-color);
+  cursor: pointer;
 }

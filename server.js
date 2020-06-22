@@ -23,26 +23,32 @@ const handleFourOhFour = (req, res) => {
 
 // Handlers
 const handleHomePage = (req, res) => {
-  res.status(200).render('./pages/homepage', {users: users});
+  res.status(200).render('./pages/homepage', {
+    users: users,
+    currentUser:currentUser
+  });
 }
 
 const handleProfilePage = (req, res) => {
   const _id = req.params._id;
   const user = findUser(_id);
   const friends = findFriends(user);
-  res.status(200).render('./pages/profile', {
-    user: user,
-    friends: friends
-  });
+    res.status(200).render('./pages/profile', {
+      user: user,
+      friends: friends,
+      currentUser:currentUser
+    });
 }
 
 const handleSignIn = (req, res) => {
-  res.status(200).render('./pages/signin');
+  res.status(200).render('./pages/signin', {
+    currentUser: currentUser
+  });
 }
 
 const handleName = (req, res) => {
   const firstName = req.query.firstName;
-  const currentUser = users.find((user) => Object.values(user).includes(firstName));
+  currentUser = users.find((user) => Object.values(user).includes(firstName));
   if(currentUser === undefined) {
     res.status(404).redirect('/signin');
   } else {
